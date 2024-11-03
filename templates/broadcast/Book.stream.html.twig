@@ -1,0 +1,36 @@
+{# Learn how to use Turbo Streams: https://github.com/symfony/ux-turbo#broadcast-doctrine-entities-update #}
+{% block create %}
+    <turbo-stream action="append" target="books">
+        <template>
+            <tr id="book_{{ id }}" {{ turbo_stream_listen(entity) }}">
+                <td> {{ id }}</td>
+                <td>{{ entity.Title }}</td>
+                <td>{{ entity.Author }}</td>
+                <td>{{ entity.Description }}</td>
+                <td>
+                    <a href="{{ path('app_book_show', {'id': id}) }}">show</a>
+                    <a href="{{ path('app_book_edit', {'id': id}) }}">edit</a>
+                </td>
+            </tr>
+        </template>
+    </turbo-stream>
+{% endblock %}
+
+{% block update %}
+    <turbo-stream action="update" target="book_{{ id }}">
+        <template>
+                <td> {{ id }}</td>
+                <td>{{ entity.Title }}</td>
+                <td>{{ entity.Author }}</td>
+                <td>{{ entity.Description }}</td>
+                <td>
+                    <a href="{{ path('app_book_show', {'id': id}) }}">show</a>
+                    <a href="{{ path('app_book_edit', {'id': id}) }}">edit</a>
+                </td>
+        </template>
+    </turbo-stream>
+{% endblock %}
+
+{% block remove %}
+    <turbo-stream action="remove" target="book_{{ id }}"></turbo-stream>
+{% endblock %}

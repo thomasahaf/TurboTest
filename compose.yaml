@@ -1,25 +1,60 @@
-
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-16}-alpine
+###> mysql 8 ###
+  mysql-database:
+    image: mysql:8.3
+    restart: always
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
+      MYSQL_DATABASE: 'TurboTest'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'testUser'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'testPassword'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'adminPassword'
+    ports:
+      # <Port exposed> : <MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      #- ./docker/mysql/data:/var/lib/mysql:rw
+      - my-db:/var/lib/mysql
+      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/db/data:/var/lib/mysql:rw
+  ###< mysql 8 ###
+
+###> symfony/mercure-bundle ###
+  mercure:
+    image: dunglas/mercure
+    restart: unless-stopped
+    environment:
+      # Uncomment the following line to disable HTTPS,
+      SERVER_NAME: ':80'
+      MERCURE_PUBLISHER_JWT_KEY: '309ajs9f!jkjaidf89j!!dasjikfjkdfjkfaakdfj890j893jklmhajdfh8b8378buabjdfh'
+      MERCURE_SUBSCRIBER_JWT_KEY: '309ajs9f!jkjaidf89j!!dasjikfjkdfjkfaakdfj890j893jklmhajdfh8b8378buabjdfh'
+      # Set the URL of your Symfony project (without trailing slash!) as value of the cors_origins directive
+      MERCURE_EXTRA_DIRECTIVES: |
+        cors_origins http://127.0.0.1:8000
+    # Comment the following line to disable the development mode
+    command: /usr/bin/caddy run --config /etc/caddy/Caddyfile.dev
     healthcheck:
-      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
+      test: ["CMD", "curl", "-f", "https://localhost/healthz"]
       timeout: 5s
       retries: 5
       start_period: 60s
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      - mercure_data:/data
+      - mercure_config:/config
+###< symfony/mercure-bundle ###
 
 volumes:
 ###> doctrine/doctrine-bundle ###
-  database_data:
+  my-db:
 ###< doctrine/doctrine-bundle ###
+
+###> symfony/mercure-bundle ###
+  mercure_data:
+  mercure_config:
+###< symfony/mercure-bundle ###
