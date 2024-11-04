@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import './bootstrap.js';
 /*
  * Welcome to your app's main JavaScript file!
@@ -9,3 +10,7 @@ import './styles/app.css';
 import './vendor/bootstrap/dist/css/bootstrap.min.css'
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+
+$( document ).ready(function() {
+    console.log( "Document ready!" );
+});
