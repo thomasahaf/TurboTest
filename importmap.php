@@ -38,4 +38,7 @@ return [
     'jquery' => [
         'version' => '3.7.1',
     ],
+    'jquery-ui' => [
+        'version' => '1.14.1',
+    ],
 ];

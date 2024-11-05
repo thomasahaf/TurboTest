@@ -1,5 +1,9 @@
-import $ from 'jquery';
+import './provide_jquery.js';
+
+//import $ from 'jquery';/
+
 import './bootstrap.js';
+import './vendor/jquery-ui/jquery-ui.index.js';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -11,6 +15,6 @@ import './vendor/bootstrap/dist/css/bootstrap.min.css'
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 
-$( document ).ready(function() {
-    console.log( "Document ready!" );
+ $( document ).ready(function() {
+    console.log( "Document ready! 2" );
 });
