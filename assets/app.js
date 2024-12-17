@@ -1,8 +1,8 @@
+import './bootstrap.js';
 import './provide_jquery.js';
 
 //import $ from 'jquery';/
-
-import './bootstrap.js';
+
 import './vendor/jquery-ui/jquery-ui.index.js';
 /*
  * Welcome to your app's main JavaScript file!
