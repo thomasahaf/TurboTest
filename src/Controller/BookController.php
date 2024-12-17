@@ -10,10 +10,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Notifier\Message\DesktopMessage;
+use Symfony\Component\Notifier\TexterInterface;
+use Symfony\Component\Notifier\Bridge\JoliNotif\JoliNotifOptions;
 
 #[Route('/book')]
 final class BookController extends AbstractController
 {
+    public function __construct(private TexterInterface $texter)
+    {
+
+    }
+
     #[Route(name: 'app_book_index', methods: ['GET'])]
     public function index(BookRepository $bookRepository): Response
     {
@@ -58,6 +66,7 @@ final class BookController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            $this->notifyMe();
 
             return $this->redirectToRoute('app_book_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -77,5 +86,20 @@ final class BookController extends AbstractController
         }
 
         return $this->redirectToRoute('app_book_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    public function notifyMe(): void
+    {
+        $options = (new JoliNotifOptions())
+            ->setExtraOption('appId', 'This message is not displayed')
+            ->setExtraOption('url', 'https://example.com');
+
+        $message = new DesktopMessage(
+            'Changes has been done',
+            'This should show up when changes has been done.',
+            $options
+        );
+
+        $this->texter->send($message);
     }
 }
