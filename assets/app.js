@@ -2,8 +2,9 @@ import './bootstrap.js';
 import './provide_jquery.js';
 
 //import $ from 'jquery';/
-
-import './vendor/jquery-ui/jquery-ui.index.js';
+
+
+// import './vendor/jquery-ui/jquery-ui.index.js';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -12,7 +13,7 @@ import './vendor/jquery-ui/jquery-ui.index.js';
  */
 import './styles/app.css';
 import './vendor/bootstrap/dist/css/bootstrap.min.css';
-import './styles/jquery-ui-css/jquery-ui.min.css';
+//import './styles/jquery-ui-css/jquery-ui.min.css';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 

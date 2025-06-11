@@ -4,7 +4,7 @@ framework:
         paths:
             - assets/
 
-        missing_import_mode: strict
+        missing_import_mode: warn
 
 when@prod:
     framework:
