@@ -2,7 +2,7 @@ services:
 ###> mysql 8 ###
   mysql-database:
     image: mysql:8.3
-    restart: always
+    restart: unless-stopped
     environment:
       MYSQL_DATABASE: 'TurboTest'
       # So you don't have to use root, but you can if you like
