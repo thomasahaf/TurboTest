@@ -1,5 +1,8 @@
 import './bootstrap.js';
 
+import './stimulus_bootstrap.js';
+
+
 import './provide_jquery.js';
 
 //import $ from 'jquery';/
