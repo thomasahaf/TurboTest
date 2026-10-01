@@ -1,6 +1,4 @@
-import { Controller } from '@hotwired/stimulus';
 import Sortable from "@stimulus-components/sortable"
-
 
 export default class extends Sortable {
     static values = { url: String };
@@ -24,7 +22,12 @@ export default class extends Sortable {
     // You can override the `onUpdate` method here.
     onUpdate(event) {
         super.onUpdate(event);
+        const item = event.item ?? event.detail?.item;
         console.log("Do what you want here. 2");
+        console.log("The url value is " + this.urlValue);
+        console.log("This is the item id " + item.dataset.id);
+        const newIndex = Array.from(this.element.children).indexOf(item);
+        console.log("Getting new index " + newIndex);
     }
 
     // You can set default options in this getter for all sortable elements.
