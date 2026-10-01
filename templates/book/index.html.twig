@@ -18,7 +18,7 @@
                         <th>actions</th>
                     </tr>
                 </thead>
-                <tbody id="books" {{ turbo_stream_listen('App\\Entity\\Book') }} >
+                <tbody data-controller="reorder" data-action="sortable:end->reorder#save" data-sortable-animation-value="150" id="books" {{ turbo_stream_listen('App\\Entity\\Book') }} >
                 {% for book in books %}
                     <tr id="book_{{ book.id }}" {{ turbo_stream_listen(book) }}>
                         <td> {{ book.id }}</td>
