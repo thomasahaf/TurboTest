@@ -10,35 +10,29 @@
  *     be used as an "entrypoint" (and passed to the importmap() Twig function).
  *
  * The "importmap:require" command can be used to add new entries to this file.
+ *
+ * @return array<string, array{    // Import name as key, description of the imported file as value
+ *     path: string,               // Logical, relative or absolute path to the file
+ *     type?: 'js'|'css'|'json',   // Type of the file, defaults to 'js'
+ *     entrypoint?: bool,          // Whether the file is an entrypoint, for 'js' only
+ * }|array{
+ *     version: string,            // Version of the remote package
+ *     package_specifier?: string, // Remote "package-name/path" specifier, defaults to the import name
+ *     type?: 'js'|'css'|'json',
+ *     entrypoint?: bool,
+ * }>
  */
 return [
-    'app' => [
-        'path' => './assets/app.js',
-        'entrypoint' => true,
-    ],
-    '@hotwired/stimulus' => [
-        'version' => '3.2.2',
-    ],
-    '@symfony/stimulus-bundle' => [
-        'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
-    ],
-    '@hotwired/turbo' => [
-        'version' => '7.3.0',
-    ],
-    'bootstrap' => [
-        'version' => '5.3.3',
-    ],
-    '@popperjs/core' => [
-        'version' => '2.11.8',
-    ],
-    'bootstrap/dist/css/bootstrap.min.css' => [
-        'version' => '5.3.3',
-        'type' => 'css',
-    ],
-    'jquery' => [
-        'version' => '3.7.1',
-    ],
-    'jquery-ui' => [
-        'version' => '1.14.1',
-    ],
+    'app' => ['path' => './assets/app.js', 'entrypoint' => true],
+    '@hotwired/stimulus' => ['version' => '3.2.2'],
+    '@symfony/stimulus-bundle' => ['path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js'],
+    '@hotwired/turbo' => ['version' => '7.3.0'],
+    'bootstrap' => ['version' => '5.3.3'],
+    '@popperjs/core' => ['version' => '2.11.8'],
+    'bootstrap/dist/css/bootstrap.min.css' => ['version' => '5.3.3', 'type' => 'css'],
+    'jquery' => ['version' => '3.7.1'],
+    'jquery-ui' => ['version' => '1.14.1'],
+    '@stimulus-components/sortable' => ['version' => '5.0.3'],
+    'sortablejs' => ['version' => '1.15.6'],
+    '@rails/request.js' => ['version' => '0.0.12'],
 ];
